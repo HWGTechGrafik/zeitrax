@@ -18,21 +18,59 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Zeitrax – Arbeitszeiterfassung">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="zeitrax">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Zeitrax">
+  <meta name="theme-color" content="#15181E">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>zeitrax</title>
+  <title>Zeitrax</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Ladebildschirm: Zeitrax-Logo mittig auf Ink-Fläche, bis Flutter startet.
+       Kein weißes Aufblitzen, eigenes Branding statt Flutter-Standard. */
+    html, body { margin: 0; padding: 0; background-color: #15181E; }
+    #zeitrax-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #15181E;
+      z-index: 2147483647;
+      transition: opacity .35s ease;
+    }
+    #zeitrax-splash img {
+      width: 128px;
+      height: 128px;
+    }
+    #zeitrax-splash .zeitrax-wort {
+      margin-top: 20px;
+      color: #F7F5F0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 22px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    #zeitrax-splash.zeitrax-weg { opacity: 0; pointer-events: none; }
+  </style>
 </head>
 <body>
+  <div id="zeitrax-splash">
+    <img src="splash-logo.png" alt="Zeitrax">
+    <div class="zeitrax-wort">Zeitrax</div>
+  </div>
+
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader
@@ -42,5 +80,20 @@
     * https://docs.flutter.dev/platform-integration/web/initialization
   -->
   <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Splash ausblenden, sobald Flutter die erste Ebene gerendert hat.
+    (function () {
+      function wegblenden() {
+        var s = document.getElementById('zeitrax-splash');
+        if (!s) return;
+        s.classList.add('zeitrax-weg');
+        setTimeout(function () { if (s && s.parentNode) s.parentNode.removeChild(s); }, 400);
+      }
+      // Flutter meldet den ersten Frame über dieses Event.
+      window.addEventListener('flutter-first-frame', wegblenden);
+      // Sicherheitsnetz, falls das Event ausbleibt.
+      setTimeout(wegblenden, 8000);
+    })();
+  </script>
 </body>
 </html>

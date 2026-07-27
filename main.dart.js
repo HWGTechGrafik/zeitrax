@@ -157802,9 +157802,11 @@ e=m.Q
 i=(e==null?m.y:e).nB(0.35)
 h=t.y
 h=A.b([A.a9("Konten",c,c,c,c,j,c,c,c),B.cB,A.cZ(A.bxD(new A.bhS(d),B.b8M,A.cu([d.d],h),!1,B.zp,h),28,1/0),B.cB],a)
-if(d.a.r)B.m.T(h,A.b([d.uH(b,"Resturlaub Mo\u2013Do",A.bG(s,!1)+" Tage"),d.uH(b,"Resturlaub Fr",A.bG(r,!1)+" Tage")],a))
-else h.push(d.uH(b,"Resturlaub",A.bG(s,!1)+" Tage"))
-if(d.a.w){j=d.d?"Firmenurlaub (Rest)":"Firmenurlaub"
+if(d.a.r){j=d.d?"Resturlaub Mo\u2013Do":"Urlaub Mo\u2013Do"
+j=d.uH(b,j,A.bG(s,!1)+" Tage")
+g=d.d?"Resturlaub Fr":"Urlaub Fr"
+B.m.T(h,A.b([j,d.uH(b,g,A.bG(r,!1)+" Tage")],a))}else{j=d.d?"Resturlaub":"Urlaub"
+h.push(d.uH(b,j,A.bG(s,!1)+" Tage"))}if(d.a.w){j=d.d?"Firmenurlaub (Rest)":"Firmenurlaub"
 h.push(d.uH(b,j,A.bG(n,!1)+" Tage"))}if(o>0)h.push(d.uH(b,"Sonderurlaub",A.bG(o,!1)+" Tage"))
 j=A.bG(q,!0)
 if(q<0)g=m.fy
